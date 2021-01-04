@@ -1,1 +1,2 @@
-# gontlm: Fast NTLM Authentication Proxy in go inspired by cntlm
+# gontlm: Fast NTLM Authentication Proxy in go
+inspired by cntlm
