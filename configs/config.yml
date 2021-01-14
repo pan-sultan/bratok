@@ -1,0 +1,29 @@
+listen:
+    - 127.0.0.1:8888
+allow:
+    - 192.168.0.1
+deny:
+    - 192.168.0.1
+
+proxies:
+   - type: direct
+     usefor:
+         - 127.0.0.1
+
+   - type: ntlm
+     user: bubnov
+     domain: DOMAIN
+     passhash: D9DB1BEAFC02ED1AC61205352FD06CB7 
+     url: "proxy.example.com:8080"
+     usefor:
+         - google.com
+         - "!yandex.ru"
+     ignore:
+         - "*"
+
+   - type: socks5
+     url: "proxy.example.com:8080"
+     usefor:
+         - "*"
+     ignore:
+         - "*"
