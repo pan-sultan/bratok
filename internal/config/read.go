@@ -1,16 +1,16 @@
 package config
 
 import (
-	"bufio"
-	"fmt"
-	"gontlm"
+	"bytes"
 	"io"
+	"myproxy"
 	"os"
-	"strings"
+
+	"gopkg.in/yaml.v2"
 )
 
-func ReadFromFile(filename string) (gontlm.Config, error) {
-	cfg := gontlm.Config{}
+func ReadFromFile(filename string) (myproxy.Config, error) {
+	cfg := myproxy.Config{}
 	file, err := os.Open(filename)
 
 	if err != nil {
@@ -22,23 +22,27 @@ func ReadFromFile(filename string) (gontlm.Config, error) {
 	return Read(file)
 }
 
-func Read(reader io.Reader) (gontlm.Config, error) {
-	cfg := gontlm.Config{}
+func Read(reader io.Reader) (myproxy.Config, error) {
+	cfg := myproxy.Config{}
+	data, err := readBytes(reader)
 
-	scanner := bufio.NewScanner(reader)
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
+	if err != nil {
+		return cfg, err
+	}
 
-		if line == "" || strings.HasPrefix(line, "#") || strings.HasPrefix(line, "[") {
-			continue
-		}
-
-		if err := setValue(&cfg, line); err != nil {
-			return cfg, err
-		}
-
-		fmt.Println(line)
+	if err := yaml.Unmarshal(data, &cfg); err != nil {
+		return cfg, err
 	}
 
 	return cfg, nil
+}
+
+func readBytes(reader io.Reader) ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	if _, err := buf.ReadFrom(reader); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
