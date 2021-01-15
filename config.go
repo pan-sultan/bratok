@@ -7,7 +7,6 @@ const (
 )
 
 type Config struct {
-	NoProxy []string
 	Listen  []string `yaml:"listen"`
 	Allow   []string `yaml:"allow"`
 	Deny    []string `yaml:"deny"`
