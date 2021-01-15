@@ -18,12 +18,8 @@ proxies:
      usefor:
          - google.com
          - "!yandex.ru"
-     ignore:
-         - "*"
 
    - type: socks5
      url: "proxy.example.com:8080"
      usefor:
-         - "*"
-     ignore:
          - "*"

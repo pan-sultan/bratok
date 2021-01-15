@@ -17,7 +17,6 @@ type Proxy struct {
 	Type   string   `yaml:"type"`
 	URL    string   `yaml:"url"`
 	UseFor []string `yaml:"usefor"`
-	Ignore []string `yaml:"ignore"`
 
 	ProxyNTLM `yaml:",inline"`
 }
