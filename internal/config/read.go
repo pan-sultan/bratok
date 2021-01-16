@@ -1,20 +1,19 @@
 package config
 
 import (
+	"bratok"
 	"bytes"
 	"io"
-	"bratok"
 	"os"
 
 	"gopkg.in/yaml.v2"
 )
 
-func ReadFromFile(filename string) (bratok.Config, error) {
-	cfg := bratok.Config{}
+func ReadFromFile(filename string) (*bratok.Config, error) {
 	file, err := os.Open(filename)
 
 	if err != nil {
-		return cfg, err
+		return nil, err
 	}
 
 	defer file.Close()
@@ -22,19 +21,21 @@ func ReadFromFile(filename string) (bratok.Config, error) {
 	return Read(file)
 }
 
-func Read(reader io.Reader) (bratok.Config, error) {
-	cfg := bratok.Config{}
+func Read(reader io.Reader) (*bratok.Config, error) {
 	data, err := readBytes(reader)
 
 	if err != nil {
-		return cfg, err
+		return nil, err
 	}
 
-	if err := yaml.Unmarshal(data, &cfg); err != nil {
-		return cfg, err
+	ycfg := yamlCfg{}
+	if err := yaml.Unmarshal(data, &ycfg); err != nil {
+		return nil, err
 	}
 
-	return cfg, nil
+	validate(ycfg)
+
+	return yaml2Config(ycfg), nil
 }
 
 func readBytes(reader io.Reader) ([]byte, error) {

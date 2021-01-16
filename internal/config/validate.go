@@ -1,10 +1,10 @@
 package config
 
-import (
-	"fmt"
-	"bratok"
-)
+func validate(y yamlCfg) error {
+	return nil
+}
 
+/*
 func Validate(cfg bratok.Config) error {
 	for _, p := range cfg.Proxies {
 		switch p.Type {
@@ -16,7 +16,7 @@ func Validate(cfg bratok.Config) error {
 			if err := validateDirect(p); err != nil {
 				return err
 			}
-		case bratok.Socks5:
+		case bratok.Socks:
 			if err := validateSocks5(p); err != nil {
 				return err
 			}
@@ -39,3 +39,4 @@ func validateDirect(proxy bratok.Proxy) error {
 func validateSocks5(proxy bratok.Proxy) error {
 	return nil
 }
+*/
