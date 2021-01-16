@@ -1,4 +1,4 @@
-package myproxy
+package bratok
 
 const (
 	Direct = "direct"

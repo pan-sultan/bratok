@@ -3,14 +3,14 @@ package config
 import (
 	"bytes"
 	"io"
-	"myproxy"
+	"bratok"
 	"os"
 
 	"gopkg.in/yaml.v2"
 )
 
-func ReadFromFile(filename string) (myproxy.Config, error) {
-	cfg := myproxy.Config{}
+func ReadFromFile(filename string) (bratok.Config, error) {
+	cfg := bratok.Config{}
 	file, err := os.Open(filename)
 
 	if err != nil {
@@ -22,8 +22,8 @@ func ReadFromFile(filename string) (myproxy.Config, error) {
 	return Read(file)
 }
 
-func Read(reader io.Reader) (myproxy.Config, error) {
-	cfg := myproxy.Config{}
+func Read(reader io.Reader) (bratok.Config, error) {
+	cfg := bratok.Config{}
 	data, err := readBytes(reader)
 
 	if err != nil {

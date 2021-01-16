@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
-	"myproxy"
-	"myproxy/internal/config"
+	"bratok"
+	"bratok/internal/config"
 	"os"
 )
 
@@ -17,7 +17,7 @@ func main() {
 	fmt.Println(cfg)
 }
 
-func readConfig(filename string) (myproxy.Config, error) {
+func readConfig(filename string) (bratok.Config, error) {
 	cfg, err := config.ReadFromFile(os.Args[1])
 
 	if err != nil {

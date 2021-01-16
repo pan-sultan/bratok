@@ -2,21 +2,21 @@ package config
 
 import (
 	"fmt"
-	"myproxy"
+	"bratok"
 )
 
-func Validate(cfg myproxy.Config) error {
+func Validate(cfg bratok.Config) error {
 	for _, p := range cfg.Proxies {
 		switch p.Type {
-		case myproxy.NTLM:
+		case bratok.NTLM:
 			if err := validateNTLM(p); err != nil {
 				return err
 			}
-		case myproxy.Direct:
+		case bratok.Direct:
 			if err := validateDirect(p); err != nil {
 				return err
 			}
-		case myproxy.Socks5:
+		case bratok.Socks5:
 			if err := validateSocks5(p); err != nil {
 				return err
 			}
@@ -28,14 +28,14 @@ func Validate(cfg myproxy.Config) error {
 	return nil
 }
 
-func validateNTLM(proxy myproxy.Proxy) error {
+func validateNTLM(proxy bratok.Proxy) error {
 	return nil
 }
 
-func validateDirect(proxy myproxy.Proxy) error {
+func validateDirect(proxy bratok.Proxy) error {
 	return nil
 }
 
-func validateSocks5(proxy myproxy.Proxy) error {
+func validateSocks5(proxy bratok.Proxy) error {
 	return nil
 }
