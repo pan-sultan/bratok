@@ -58,14 +58,6 @@ func validateListen(listen []string) error {
 	return nil
 }
 
-func validatePort(port string) error {
-	if n, err := strconv.Atoi(port); err != nil || n < 1 || n > 65535 {
-		return fmt.Errorf("invalid port: '%s'", port)
-	}
-
-	return nil
-}
-
 func validateAllow(allow []string) error {
 	if len(allow) == 0 {
 		return errors.New("cannot be empty")
@@ -78,23 +70,6 @@ func validateAllow(allow []string) error {
 	}
 
 	return nil
-}
-
-func validateIPv4(host string) error {
-	if net.ParseIP(host) != nil && !strings.Contains(host, ":") {
-		return nil
-	}
-
-	return errors.New("invalid IPv4 address")
-}
-
-func validateHostname(host string) error {
-	re, _ := regexp.Compile(`^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$`)
-	if re.MatchString(host) {
-		return nil
-	}
-
-	return fmt.Errorf("invalid hostname: %s", host)
 }
 
 func validateProxies(proxies []*yProxy) error {
@@ -123,6 +98,31 @@ func validateRules(y yConfig) error {
 	}
 
 	return nil
+}
+
+func validatePort(port string) error {
+	if n, err := strconv.Atoi(port); err != nil || n < 1 || n > 65535 {
+		return fmt.Errorf("invalid port: '%s'", port)
+	}
+
+	return nil
+}
+
+func validateIPv4(host string) error {
+	if net.ParseIP(host) != nil && !strings.Contains(host, ":") {
+		return nil
+	}
+
+	return errors.New("invalid IPv4 address")
+}
+
+func validateHostname(host string) error {
+	re, _ := regexp.Compile(`^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$`)
+	if re.MatchString(host) {
+		return nil
+	}
+
+	return fmt.Errorf("invalid hostname: %s", host)
 }
 
 func validateRulesPatterns(rules map[string][]string) error {
