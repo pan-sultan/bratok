@@ -22,6 +22,7 @@ type Firewall interface {
 	Allow(ip string) bool
 }
 
+// Plain Proxy struct used for all proxy types
 type Proxy struct {
 	Type     string
 	URL      string
