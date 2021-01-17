@@ -1,0 +1,7 @@
+# github.com/yl2chen/cidranger v1.0.2
+## explicit
+github.com/yl2chen/cidranger
+github.com/yl2chen/cidranger/net
+# gopkg.in/yaml.v2 v2.4.0
+## explicit
+gopkg.in/yaml.v2

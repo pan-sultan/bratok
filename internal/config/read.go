@@ -3,8 +3,10 @@ package config
 import (
 	"bratok"
 	"bytes"
+	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -28,14 +30,16 @@ func Read(reader io.Reader) (*bratok.Config, error) {
 		return nil, err
 	}
 
-	ycfg := yamlCfg{}
-	if err := yaml.Unmarshal(data, &ycfg); err != nil {
+	ycfg := yConfig{}
+	if err := yaml.UnmarshalStrict(data, &ycfg); err != nil {
+		return nil, convertYamlErr(err)
+	}
+
+	if err := validate(ycfg); err != nil {
 		return nil, err
 	}
 
-	validate(ycfg)
-
-	return yaml2Config(ycfg), nil
+	return yaml2Config(ycfg)
 }
 
 func readBytes(reader io.Reader) ([]byte, error) {
@@ -46,4 +50,22 @@ func readBytes(reader io.Reader) ([]byte, error) {
 	}
 
 	return buf.Bytes(), nil
+}
+
+func convertYamlErr(err error) error {
+	s := err.Error()
+	if !(strings.Contains(s, "not found") && strings.Contains(s, "field")) {
+		return err
+	}
+
+	ss := strings.Split(s, ":")
+
+	for _, s := range ss {
+		s = strings.TrimSpace(s)
+		if strings.HasPrefix(s, "line ") {
+			return fmt.Errorf("%s: unknown parameter", s)
+		}
+	}
+
+	return err
 }

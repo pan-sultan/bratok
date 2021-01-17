@@ -14,6 +14,13 @@ proxies:
      passhash: D9DB1BEAFC02ED1AC61205352FD06CB7 
      url: "proxy.example.com:8080"
 
+   - name: http_proxy
+     type: http
+     user: bubnov
+     password: "mypass@rd" 
+     url: "http.example.com:8080"
+     test: "xxx"
+
    - name: secret_proxy
      type: socks
      url: "proxy.example.com:8080"
@@ -25,6 +32,8 @@ rules:
     - "127.0.0.1"
   coorp_proxy:
     - "!google.com"
-  secret:
+  http_proxy:
+    - "google.com"
+  secret_proxy:
     - "*"
 
