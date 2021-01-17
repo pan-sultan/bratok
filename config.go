@@ -10,7 +10,7 @@ const (
 type Config struct {
 	Listen   []string
 	Proxy    PAC
-	Firewall Allower
+	Firewall Firewall
 }
 
 // Proxy Auto-Configuration (PAC) like in mozilla projects
@@ -18,7 +18,7 @@ type PAC interface {
 	Find(url string, host string) *Proxy
 }
 
-type Allower interface {
+type Firewall interface {
 	Allow(ip string) bool
 }
 
