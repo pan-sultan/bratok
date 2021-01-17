@@ -6,7 +6,6 @@ allow:
 proxies:
    - name: noproxy
      type: direct
-
    - name: coorp_proxy
      type: ntlm
      user: bubnov
@@ -19,7 +18,6 @@ proxies:
      user: bubnov
      password: "mypass@rd" 
      url: "http.example.com:8080"
-     test: "xxx"
 
    - name: secret_proxy
      type: socks
