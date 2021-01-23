@@ -69,7 +69,7 @@ func yaml2Config(y yConfig) (*bratok.Config, error) {
 }
 
 func fillAllower(cfg *bratok.Config, y yConfig) error {
-	allower := _NewAllower()
+	allower := _NewFirewall()
 	for _, ip := range y.Allow {
 		if err := allower.add(ip); err != nil {
 			return err

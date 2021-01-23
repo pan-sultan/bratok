@@ -7,22 +7,22 @@ import (
 	"github.com/yl2chen/cidranger"
 )
 
-type _Allower struct {
+type _Firewall struct {
 	ipnets cidranger.Ranger
 }
 
-func _NewAllower() *_Allower {
-	return &_Allower{
+func _NewFirewall() *_Firewall {
+	return &_Firewall{
 		ipnets: cidranger.NewPCTrieRanger(),
 	}
 }
 
-func (a *_Allower) Allow(ip string) bool {
+func (a *_Firewall) Allow(ip string) bool {
 	contains, err := a.ipnets.Contains(net.ParseIP(ip))
 	return contains && err != nil
 }
 
-func (a *_Allower) add(ip string) error {
+func (a *_Firewall) add(ip string) error {
 	if !strings.Contains(ip, "/") {
 		ip += "/32"
 	}
