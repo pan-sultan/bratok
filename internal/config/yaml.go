@@ -108,7 +108,7 @@ func createProxyStorage(yproxy *yProxy, patterns []string) (*_Proxy, error) {
 
 	for _, pattern := range patterns {
 		if pattern == "*" {
-			storage.all = true
+			storage.anyHosts = true
 			continue
 		}
 

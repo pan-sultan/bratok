@@ -6,7 +6,7 @@ import (
 
 func (r *_ProxyResolver) Find(url string, host string) *bratok.Proxy {
 	for _, p := range r.proxies {
-		if p.all || p.usefor.find(url, host) {
+		if p.anyHosts || p.usefor.find(url, host) {
 			return p.proxy
 		}
 
@@ -22,11 +22,11 @@ func (r *_ProxyResolver) Find(url string, host string) *bratok.Proxy {
 }
 
 type _Proxy struct {
-	name    string
-	proxy   *bratok.Proxy
-	usefor  *_PRStorage
-	exclude *_PRStorage
-	all     bool
+	name     string
+	proxy    *bratok.Proxy
+	usefor   *_PRStorage
+	exclude  *_PRStorage
+	anyHosts bool
 }
 
 type _ProxyResolver struct {
